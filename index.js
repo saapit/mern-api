@@ -6,9 +6,10 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const productRoutes = require('./src/routes/products');
+const authRoutes = require('./src/routes/auth');
 
 
-app.use(bodyParser.json()) //type JSON
+app.use(bodyParser.json()); //type JSON
 
 
 // configuration for CORS Policy - Web Browser
@@ -22,5 +23,8 @@ app.use((req, res, next) => {
 
 
 app.use('/', productRoutes);
+
+// auth
+app.use('/v1/auth', authRoutes);
 
 app.listen(4000);
