@@ -56,9 +56,45 @@ req:
     ""
 }
 
+==================================================================================================================
+
+
 GROUP: BLOG
 
 [1] - Create Blog Post
+[POST] : {root.api}/{version}/blog/post
+
+req:
+{
+    "title"  : "Title Blog",
+    "image"  : "imagefile.png",
+    "body"   : "Aliqua officia eu id aute sunt elit."
+}
+
+res:
+{
+    "message": "create Blog Post Success",
+    "data": {
+        "post_id" : 1,
+        "title" : "Title Blog",
+        "image" : "imagefile.png",
+        "body"  : "Aliqua officia eu id aute sunt elit.",
+        "created_at" : "21/02/2021",
+        "author" : {
+            "uid" : 1,
+            "name": "Testing"
+        }
+    }
+}
+
+err-response:
+201 -> Blog Post Successfully Created
+400 -> Input Was Not valid
+
+==================================================================================================================
+
+GROUP: BLOG
+
 [2] - Get Blog Post
 [3] - Update Blog Post
 [4] - Delete Blog Post
