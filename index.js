@@ -3,6 +3,7 @@ const express = require('express'); // ini default from express
 
 
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
 const authRoutes = require('./src/routes/auth');
@@ -37,6 +38,11 @@ app.use((error, req, res, next) => {
             message: message,
             data: data
         })
-    })
+    });
 
-app.listen(4000);
+    mongoose.connect('mongodb+srv://sapit:mmXJlxCgdX4Zn06N@cluster0.63gmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    .then(() => { //if success connect
+        app.listen(4000, () => console.log('Connection Success'));
+    })
+    .catch(err => console.log(err)); //if connection fail
+
