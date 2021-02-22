@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
+const path = require('path');
 
 const app = express();
 const authRoutes = require('./src/routes/auth');
@@ -31,6 +32,7 @@ const fileFilter = (req, file, cb) => {
 // middlewares
 
 app.use(bodyParser.json()); //type JSON
+app.use('/images', express.static(path.join(__dirname, 'images'))) //handle error for image call from server
 app.use(multer({
     storage: fileStorage,
     fileFilter: fileFilter
