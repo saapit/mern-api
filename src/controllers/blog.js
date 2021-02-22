@@ -1,5 +1,8 @@
 const {validationResult} = require('express-validator');
+const { remove } = require('../models/blog');
 const BlogPost = require('../models/blog');
+const path = require('path');
+const fs = require('fs') // file system
 
 exports.createBlogPost = (req, res, next) => {
     const errors = validationResult(req);
@@ -124,4 +127,40 @@ exports.updateBlogPost = (req, res, next) => {
     })
 
   
+}
+
+exports.deleteBlogPost = (req, res, next) => {
+    const postId = req.params.postId;
+
+    BlogPost.findById(postId)
+    .then(post => {
+        if(!post){
+            const err = new Error('Blog Post not found')
+            err.errorStatus = 404;
+            throw err;
+         }
+
+         removeImage(post.image);
+         return BlogPost.findByIdAndRemove(postId) // remove posting
+        
+    })
+    .then(result => {
+        res.status(200).json({
+            message: 'Delete Success',
+            data: result,
+        })
+    })
+    .catch(err => {
+        next(err);
+    })
+}
+
+const removeImage = (filePath) => {
+    console.log('filePath: ', filePath);
+    console.log('dir name: ', __dirname);
+
+    // ex: D:\Web Development\React\Workspace\Projects\mern-api\src\controllers\images\1613983255024-scizor.png
+    filePath = path.join(__dirname, '../../', filePath);
+    fs.unlink(filePath, err => console.log(err)) // cara remove
+
 }

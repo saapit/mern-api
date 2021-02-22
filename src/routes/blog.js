@@ -31,6 +31,9 @@ router.put('/post/:postId', [
     .withMessage('input body not valid')],
     blogController.updateBlogPost);
 
+// delete blog post
+router.delete('/post/:postId', blogController.deleteBlogPost);
+
 
 
 module.exports = router;
