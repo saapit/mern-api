@@ -11,5 +11,7 @@ router.post('/post', [
     body('body').isLength({min: 5}).withMessage('input body not valid')],
     blogController.createBlogPost);
 
+router.get('/posts', blogController.getAllBlogPost);
+
 
 module.exports = router;
