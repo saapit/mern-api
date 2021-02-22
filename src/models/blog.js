@@ -7,7 +7,10 @@ const BlogPost = new Schema({
         type: String,
         required: true,
     },
-    // image
+    image: {
+        type: String, //MongoDB hanya simpan path image
+        required: true
+    },
     body: {
         type: String,
         required: true,

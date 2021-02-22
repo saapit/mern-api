@@ -1,16 +1,41 @@
-const express = require('express'); // ini default from express
-// import express from 'express'    ..ni syntax Es6
-
-
+const express = require('express'); 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const multer = require('multer');
 
 const app = express();
 const authRoutes = require('./src/routes/auth');
 const blogRoutes = require('./src/routes/blog');
 
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'images'); //file path in project 
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+//cb is callback
+const fileFilter = (req, file, cb) => {
+    if( file.mimetype === 'image/png' ||
+        file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/jpeg'
+    ){
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+
+// middlewares
 
 app.use(bodyParser.json()); //type JSON
+app.use(multer({
+    storage: fileStorage,
+    fileFilter: fileFilter
+})
+.single('image'));
 
 
 // configuration for CORS Policy - Web Browser
