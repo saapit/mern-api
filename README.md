@@ -8,4 +8,10 @@ terminal : `yarn add mongoose`
 
 upload Image/Photo in NodeJS\
 using middleware: multer -> https://www.npmjs.com/package/multer\
-terminal: `yarn add multer`
+terminal: `yarn add multer`\
+
+suing mock data\
+link: https://www.mockaroo.com/\
+
+image or etc generator\
+link: https://www.generatormix.com/

@@ -49,16 +49,32 @@ exports.createBlogPost = (req, res, next) => {
 }
 
 exports.getAllBlogPost = (req, res, next) => {
+    const currentPage = req.query.page || 1; // ( ... || default value)
+    const perPage = req.query.perPage || 5;
+    let totalItems;
+
     BlogPost.find()
-    .then(result => {
-    res.status(200).json({
-        message: 'Data Blog Post Called Successfully',
-        data: result
+    .countDocuments()
+    .then(count => {
+        // pagination formula
+        totalItems = count;
+        return BlogPost.find()
+        .skip((parseInt(currentPage) - 1) * parseInt(perPage))
+        .limit(parseInt(perPage));
     })
+    .then(result => {
+        res.status(200).json({
+            message: 'Data Blog Post Called Successfully',
+            data: result,
+            total_data: totalItems, //response using underscore '_'
+            per_page: parseInt(perPage),
+            current_page: parseInt(currentPage),
+        })
     })
     .catch(err => {
         next(err);
     })
+
 }
 
 exports.getBlogPostById = (req, res, next) => {
