@@ -40,7 +40,7 @@ app.use((error, req, res, next) => {
         })
     });
 
-    mongoose.connect('mongodb+srv://sapit:mmXJlxCgdX4Zn06N@cluster0.63gmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    mongoose.connect('mongodb+srv://sapit:mmXJlxCgdX4Zn06N@cluster0.63gmh.mongodb.net/blog?retryWrites=true&w=majority')
     .then(() => { //if success connect
         app.listen(4000, () => console.log('Connection Success'));
     })

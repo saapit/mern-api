@@ -7,7 +7,7 @@ const blogController = require('../controllers/blog');
 
 // [POST] : /v1/blog/post
 router.post('/post', [ 
-    body('title').isLength({min: 5}).withMessage('Input title not vaild'),
+    body('title').isLength({min: 5}).withMessage('Input title not valid'),
     body('body').isLength({min: 5}).withMessage('input body not valid')],
     blogController.createBlogPost);
 
